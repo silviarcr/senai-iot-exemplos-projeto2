@@ -23,26 +23,28 @@ void setup() {
 void loop() {
   // Lê o valor do sensor
   int distancia = ultrasonic.distanceRead();
-  noTone (Buzzer);
+//  noTone (Buzzer);
 
   // Escreve o valor da distância no painel Serial
   Serial.print("Distance in CM: ");
   Serial.println(distancia);
   
   delay(1000);
-  if( distancia < 100 && distancia > 80){
-     
-      tone (Buzzer, valorBuzzer, 1000);
-      Serial.println("buzzer ligado");
+  if( distancia < 10 && distancia > 8){
+      digitalWrite(portaLedV, HIGH);
+      
+      Serial.println("Led ver ligado");
     }
-  else if ( distancia < 80 && distancia > 60 ){
-    digitalWrite(portaLedV, HIGH);
-    Serial.println("Led ver ligado");
+  else if ( distancia < 8 && distancia > 6 ){
+    tone (Buzzer, valorBuzzer, 1000);
+//     digitalWrite(portaLedV, HIGH);
+    Serial.println("buzzer ligado");
+//      noTone (Buzzer);
     }
-  else if (distancia < 60){
-     digitalWrite(portaLedA, HIGH);
-      Serial.println("Led ama ligado");
-    
+  else if (distancia < 6){
+    digitalWrite(portaLedA, HIGH);
+    Serial.println("Led ama ligado");
+     // noTone (Buzzer);
    }
    else{
      digitalWrite(portaLedA, LOW);

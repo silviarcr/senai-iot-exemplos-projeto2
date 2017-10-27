@@ -11,13 +11,30 @@ void setup() {
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print("hello, world!");
+  Serial.begin(9600);
+ 
 }
 
 void loop() {
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
   lcd.setCursor(0, 1);
+  Serial.println("loop");
   // print the number of seconds since reset:
-  lcd.print(millis() / 1000);
+  //lcd.print(millis() / 1000);
+  if (Serial.available() >0){
+  array mensagem = Serial.readString();
+  Serial.print(mensagem);
+  lcd.print(mensagem);
+  }
+  
 }
 
+
+
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
