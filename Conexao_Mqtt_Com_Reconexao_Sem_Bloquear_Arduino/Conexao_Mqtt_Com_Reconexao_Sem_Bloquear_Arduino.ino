@@ -1,12 +1,35 @@
+#include <utility/logging.h>
 #include <SPI.h>
 #include <UIPEthernet.h>
 #include <utility/logging.h>
 #include <PubSubClient.h>
 
-byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
-
+//byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
+byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xF1, 0x35 };
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(topic);
+  //colocar aqui codigo de comunicacao com MQTT
+  int msg = atoi(payload);
+ Serial.println(msg);
+ Serial.println(topic);
+ if (strcmp(topic, "Portao") == 0) {
+   Serial.println("topic == Portao");
+   if (msg == 1) {
+     Serial.println("msg recebida = 1");
+     //acende lampada
+     acendeApagaLed(portaLed, HIGH);
+   }
+   else {
+     //apaga lampada
+     Serial.println("msg = 0 fecha portao");
+     delay(2000);
+     acendeApagaLed(portaLed, LOW);
+   }
+
+ }else{
+   Serial.println("Nao entrou no IF");
+   }
+  
 }
 
 EthernetClient ethClient;
