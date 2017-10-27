@@ -4,6 +4,9 @@
 #include <utility/logging.h>
 #include <PubSubClient.h>
 
+const int portaLed = 8;
+int statusLed = LOW;
+
 //byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
 byte mac[]    = {  0xDE, 0xED, 0xBA, 0xFE, 0xF1, 0x35 };
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -57,7 +60,6 @@ void setup()
   lastReconnectAttempt = 0;
 }
 
-
 void loop()
 {
   if (!client.connected()) {
@@ -74,4 +76,9 @@ void loop()
     client.loop();
   }
 
+}
+
+void acendeApagaLed(int pino, int status) {
+ digitalWrite(pino, status);
+ statusLed = status;
 }
